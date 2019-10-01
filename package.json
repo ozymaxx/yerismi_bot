@@ -1,0 +1,35 @@
+{
+  "name": "yerismi_bot",
+  "version": "1.0.0",
+  "dependencies": {
+    "@types/node": "^12.7.8",
+    "@types/sprintf-js": "^1.1.2",
+    "chai": "^4.2.0",
+    "commander": "^3.0.2",
+    "node": "^12.11.0",
+    "sprintf-js": "^1.1.2",
+    "typescript": "^3.6.3",
+    "telegraf": "^3.32.0"
+  },
+  "description": "Türkçe yer ismi yaratan bir Telegram botu",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "yerismi_bot"
+  },
+  "keywords": [
+    "yer",
+    "ismi",
+    "türkçe",
+    "turkish",
+    "yapay",
+    "zeka",
+    "sinir",
+    "ağları"
+  ],
+  "author": "Ozan Can Altıok",
+  "license": "ISC"
+}
