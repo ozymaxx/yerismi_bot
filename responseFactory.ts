@@ -1,8 +1,9 @@
 import { sprintf } from "sprintf-js";
+import { Constants } from "./constants";
 
 export class ResponseFactory
 {
-    private static readonly HELP_STRING = 
+    public static readonly HELP_STRING = 
         sprintf(
             "%(projectDisplayName)s (%(projectName)s)\n" +
             "Bu botu kullanarak şu adreste (%(sourceArticleUrl)s) yer alan makalede bahsedilmekte olan" +
@@ -12,10 +13,34 @@ export class ResponseFactory
             "Kullanılabilecek komutlar: " + 
             "'%(helpCommand)s' - bu yardım metnini görmenizi sağlar\n" + 
             "'%(placeNameCommand)s' - bir yer ismi üretir" + 
-            "'%(proverbCommand)s' - bir atasözü üretir");
+            "'%(proverbCommand)s' - bir atasözü üretir", 
+            {
+                projectDisplayName: Constants.PROJECT_DISPLAY_NAME,
+                projectName: Constants.PROJECT_NAME,
+                sourceArticleUrl: Constants.SOURCE_ARTICLE_URL,
+                helpCommand: Constants.HELP_COMMAND,
+                placeNameCommand: Constants.PLACE_NAME_COMMAND,
+                proverbCommand: Constants.PROVERB_COMMAND
+            });
+    private static readonly PLACE_NAME_RESPONSE = "ANGARA";
+    private static readonly PROVERB_RESPONSE = "Adam ol, canımı ye.";
+    private static readonly INVALID_COMMAND_RESPONSE = 
+        sprintf(
+            "Ne istediğini anlamadım; istersen '%(helpCommand)s' diyerek yardım isteyebilirsin.", 
+            { helpCommand: Constants.HELP_COMMAND });
 
     public static createResponse(request: string): string
     {
-        
+        switch (request)
+        {
+            case Constants.HELP_COMMAND:
+                return ResponseFactory.HELP_STRING;
+            case Constants.PROVERB_COMMAND:
+                return ResponseFactory.PROVERB_RESPONSE;
+            case Constants.PLACE_NAME_COMMAND:
+                return ResponseFactory.PLACE_NAME_RESPONSE;
+            default:
+                return ResponseFactory.INVALID_COMMAND_RESPONSE;
+        }
     }
 }

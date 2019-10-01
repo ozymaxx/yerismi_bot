@@ -1,0 +1,7 @@
+{
+    "files": [
+        "constants.ts",
+        "responseFactory.ts",
+        "tests/responseFactory.spec.ts"
+    ]
+}

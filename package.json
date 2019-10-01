@@ -2,19 +2,24 @@
   "name": "yerismi_bot",
   "version": "1.0.0",
   "dependencies": {
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
     "@types/node": "^12.7.8",
     "@types/sprintf-js": "^1.1.2",
     "chai": "^4.2.0",
     "commander": "^3.0.2",
+    "mocha": "^6.2.1",
     "node": "^12.11.0",
+    "ts-node": "^8.4.1",
     "sprintf-js": "^1.1.2",
     "typescript": "^3.6.3",
     "telegraf": "^3.32.0"
   },
-  "description": "Türkçe yer ismi yaratan bir Telegram botu",
+  "description": "Türkçe yer ismi üreten bir Telegram botu",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "build": "tsc -p tsconfig.json",
+    "test": "mocha -r ts-node/register tests/**.spec.ts"
   },
   "repository": {
     "type": "git",
