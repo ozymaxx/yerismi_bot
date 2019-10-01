@@ -25,8 +25,8 @@ export class ResponseFactory
             });
     private static readonly PLACENAME_MODEL_FILE_PATH = "cv/checkpoint_7600.t7";
     private static readonly PROVERB_MODEL_FILE_PATH = "cv/checkpoint_1600.t7";
-    private static readonly PLACENAME_CHAR_LENGTH = 7600;
-    private static readonly PROVERB_CHAR_LENGTH = 1600;
+    private static readonly PLACENAME_CHAR_LENGTH = 100;
+    private static readonly PROVERB_CHAR_LENGTH = 1000;
     private static readonly COMMAND_TEMPLATE = "th sample.lua -checkpoint %(modelFilePath)s -length %(charLength)d -gpu -1";
     private static readonly INVALID_COMMAND_RESPONSE = 
         sprintf(
