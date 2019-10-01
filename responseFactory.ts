@@ -28,6 +28,14 @@ export class ResponseFactory
             "Ne istediğini anlamadım; '%(helpCommand)s' yazarak yardım isteyebilirsin.", 
             { helpCommand: Constants.HELP_COMMAND });
 
+    private static createFakePlacename(): string
+    {
+        const outputWithMultipleLines = 
+            exec("th sample.lua -checkpoint cv/checkpoint_7600.t7 -length 100 -gpu -1").stdout.trim();
+        const splitOutput = outputWithMultipleLines.split("\n");
+        return splitOutput[0];
+    }
+
     public static createResponse(request: string): string
     {
         switch (request)
@@ -37,7 +45,7 @@ export class ResponseFactory
             case Constants.PROVERB_COMMAND:
                 return exec("echo 'ozan'").stdout;
             case Constants.PLACE_NAME_COMMAND:
-                return exec("th sample.lua -checkpoint cv/checkpoint_7600.t7 -length 100 -gpu -1").stdout;
+                return ResponseFactory.createFakePlacename();
             default:
                 return ResponseFactory.INVALID_COMMAND_RESPONSE;
         }
