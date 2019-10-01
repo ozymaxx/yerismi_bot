@@ -1,5 +1,6 @@
 import { sprintf } from "sprintf-js";
 import { Constants } from "./constants";
+import { exec } from "shelljs";
 
 export class ResponseFactory
 {
@@ -22,8 +23,6 @@ export class ResponseFactory
                 placeNameCommand: Constants.PLACE_NAME_COMMAND,
                 proverbCommand: Constants.PROVERB_COMMAND
             });
-    private static readonly PLACE_NAME_RESPONSE = "ANGARA";
-    private static readonly PROVERB_RESPONSE = "Adam ol, canımı ye.";
     private static readonly INVALID_COMMAND_RESPONSE = 
         sprintf(
             "Ne istediğini anlamadım; '%(helpCommand)s' yazarak yardım isteyebilirsin.", 
@@ -36,9 +35,9 @@ export class ResponseFactory
             case Constants.HELP_COMMAND:
                 return ResponseFactory.HELP_STRING;
             case Constants.PROVERB_COMMAND:
-                return ResponseFactory.PROVERB_RESPONSE;
+                return exec("echo 'ozan'").stdout;
             case Constants.PLACE_NAME_COMMAND:
-                return ResponseFactory.PLACE_NAME_RESPONSE;
+                return exec("echo 'can'").stdout;
             default:
                 return ResponseFactory.INVALID_COMMAND_RESPONSE;
         }
