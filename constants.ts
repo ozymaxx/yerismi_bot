@@ -11,4 +11,12 @@ export class Constants
     public static readonly PLACE_NAME_COMMAND = sprintf(Constants.COMMAND_TEMPLATE, "yer ismi");
     public static readonly HELP_COMMAND = "yardım lütfen";
     public static readonly SOURCE_ARTICLE_URL = "https://ozymaxx.github.io/blog/2017/08/17/sahte-atasoz-yerismi/";
+    public static readonly WELCOME_MESSAGE = 
+        sprintf(
+            "Selam! Bana '%(proverbCommand)s' veya '%(placeNameCommand)s' yazarsan, sana sahte atasözü veya " + 
+            "yer ismi üretebilirim!", 
+            {
+                proverbCommand: Constants.PROVERB_COMMAND,
+                placeNameCommand: Constants.PLACE_NAME_COMMAND
+            });
 }

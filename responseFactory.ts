@@ -6,14 +6,14 @@ export class ResponseFactory
     public static readonly HELP_STRING = 
         sprintf(
             "%(projectDisplayName)s (%(projectName)s)\n" +
-            "Bu botu kullanarak şu adreste (%(sourceArticleUrl)s) yer alan makalede bahsedilmekte olan" +
-            "ve Türkçe yer ismi üreten yapay zeka modelini çağırabilir ve alternatif yer ismi üretebilirsiniz." + 
-            "Ayrıca, geliştirilmiş olan Türkçe atasözü üreten yapay zeka modelini çağırarak yapay atasözü de" + 
+            "Bu botu kullanarak şu adreste (%(sourceArticleUrl)s) yer alan makalede bahsedilmekte olan " +
+            "ve Türkçe yer ismi üreten yapay zeka modelini çağırabilir ve alternatif yer ismi üretebilirsiniz. " + 
+            "Ayrıca, geliştirilmiş olan Türkçe atasözü üreten yapay zeka modelini çağırarak yapay atasözü de " + 
             "ürettirebilirsiniz; lakin bu model henüz anlaşılır atasözleri üretebilecek kadar olgunlaşmamıştır.\n" + 
             "Kullanılabilecek komutlar: " + 
             "'%(helpCommand)s' - bu yardım metnini görmenizi sağlar\n" + 
-            "'%(placeNameCommand)s' - bir yer ismi üretir" + 
-            "'%(proverbCommand)s' - bir atasözü üretir", 
+            "'%(placeNameCommand)s' - bir yer ismi üretir\n" + 
+            "'%(proverbCommand)s' - bir atasözü üretir\n", 
             {
                 projectDisplayName: Constants.PROJECT_DISPLAY_NAME,
                 projectName: Constants.PROJECT_NAME,
@@ -26,7 +26,7 @@ export class ResponseFactory
     private static readonly PROVERB_RESPONSE = "Adam ol, canımı ye.";
     private static readonly INVALID_COMMAND_RESPONSE = 
         sprintf(
-            "Ne istediğini anlamadım; istersen '%(helpCommand)s' diyerek yardım isteyebilirsin.", 
+            "Ne istediğini anlamadım; '%(helpCommand)s' yazarak yardım isteyebilirsin.", 
             { helpCommand: Constants.HELP_COMMAND });
 
     public static createResponse(request: string): string
