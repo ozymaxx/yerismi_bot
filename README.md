@@ -7,11 +7,6 @@ desteklemektedir:
 * `bana atasözü üret`: Botun sahte atasözü üretmesini sağlar.
 * `bana yer ismi üret`: Botun sahte yer ismi üretmesini sağlar.
 
-## Kaynak kodun içeriği
-But bot sunucusu, yukarıda bağlantısı paylaşılmış olan yazıdan yola çıkılarak üretilebilecek sahte
-atasözü ve yer ismi üretebilen dil modellerini kullanmaktadır. Oluşturulan yığın dosyaları, kullanıcının
-Telegram üzerinden istediği içeriğin türüne (sahte atasözü veya yer ismi) karar verilmesini ve istenilen
-türde içeriğin oluşturulması için uygun dil modelinin çağrılmasını sağlamaktadır.
 
 ## Nasıl kullanılır?
 * Yukarıdaki yazımda yer alan docker imajını, yazıda belirtildiği gibi açıyoruz. İlerleyen adımlarda belirtildiği
@@ -19,14 +14,14 @@ türde içeriğin oluşturulması için uygun dil modelinin çağrılmasını sa
 
 * [BotFather](https://t.me/botfather) kanalını kullanarak bir Telegram botu oluşturuyoruz.
 `/newbot` komutu ile bir bot oluşturacağımızı belirtiyoruz. Bot yaratıcımız da bizden botumuza bir isim vermemizi
-istiyor. Ardından botumuza bir kullanıcı ismi vermemiz isteniyor. Bu işlemlerin ardından botumuzun adresi ve 
-bot üzerinde geliştirme yapabilmemiz için bir HTTP API anahtarı sağlanıyor. Bu anahtarı bir yere kaydediyoruz
+istiyor. Ardından botumuza bir kullanıcı ismi vermemiz isteniyor. Bu işlemlerin ardından botumuzun URL adresi ve 
+bot üzerinde geliştirme yapabilmemiz için bir HTTP API anahtarı oluşturuluyor. Bu anahtarı bir yere kaydediyoruz
 ve başkalarıyla paylaşmıyoruz.
 
 * Açmış olduğumuz Docker imajı içerisinde `~/torch-rnn` dizinindeyken `git clone https://github.com/ozymaxx/yerismi_bot.git` komutu ile bu alanda yer alan kaynak kodu indiriyoruz. 
 
-* Şu [yazıda](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/) de görülebileceği üzere, aşağıdaki komutları
-uygulayarak Docker imajına uygun NPM ve Node.js paketlerinin kurulmasını sağlıyoruz:
+* Şu [yazıda](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/) da görülebileceği üzere, aşağıdaki komutları
+uygulayarak kaynak kodumuza uygun NPM ve Node.js paketlerinin kurulmasını sağlıyoruz:
 ```
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 apt-get install nodejs
@@ -47,8 +42,9 @@ cp *.js ..
 ```
 
 * Telegram botunun oluşturulması esnasında sahip olduğumuz anahtarı, bir ortam değişkeni olarak depoluyoruz. Söz konusu
-değişken, oluşturulan JS scriptleri tarafından kullanılmaktadır. Aşağıdaki komutu Docker imajımızın konsolu üzerinde çalıştırıyoruz:
+değişken, oluşturulan JS scriptleri tarafından kullanılmaktadır. `~/torch-rnn` dizinine geri dönerek, aşağıdaki komutu Docker imajımızın konsolu üzerinde çalıştırıyoruz:
 ```
+cd ..
 export BOT_TOKEN="<anathar>" 
 ```
 Bu komutta `<anahtar>` yerine elimizde bulunan anahtarı yazıyoruz.
