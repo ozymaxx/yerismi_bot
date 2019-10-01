@@ -37,7 +37,8 @@ export class ResponseFactory
             case Constants.PROVERB_COMMAND:
                 return exec("echo 'ozan'").stdout;
             case Constants.PLACE_NAME_COMMAND:
-                return exec("th ../sample.lua -checkpoint ../cv/checkpoint_7600.t7 -length 100 -gpu -1").stdout;
+                exec("cd ..");
+                return exec("th sample.lua -checkpoint cv/checkpoint_7600.t7 -length 100 -gpu -1").stdout;
             default:
                 return ResponseFactory.INVALID_COMMAND_RESPONSE;
         }
