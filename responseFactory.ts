@@ -33,7 +33,7 @@ export class ResponseFactory
         const outputWithMultipleLines = 
             exec("th sample.lua -checkpoint cv/checkpoint_7600.t7 -length 100 -gpu -1").stdout.trim();
         const splitOutput = outputWithMultipleLines.split("\n");
-        return splitOutput[0];
+        return splitOutput[2];
     }
 
     public static createResponse(request: string): string
