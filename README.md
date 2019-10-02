@@ -6,6 +6,7 @@ desteklemektedir:
 * `yardım lütfen`: Botun içeriği ve kullanımı hakkında mesaj almanızı sağlar. 
 * `bana atasözü üret`: Botun sahte atasözü üretmesini sağlar.
 * `bana yer ismi üret`: Botun sahte yer ismi üretmesini sağlar.
+* `bana kişi ismi üret`: Botun sahte kişi ismi üretmesini sağlar (yukarıda bağlantısı paylaşılan yazıda yer alan adımlar takip edilerek, [turkce-dil-verisi](https://github.com/ozymaxx/turkce_dil_verisi) alanında bulunan `tum_isimler.txt` dosyasındaki kişi isimleri üzerinde bir dil modeli eğitilmiştir).
 
 
 ## Nasıl kullanılır?
@@ -54,6 +55,8 @@ Kullanım popularitesinden ötürü sohbet botunu TS kullanarak Node.js üzerind
 
 ## Not
 Kaynak kodunda yer alan `utils` klasörü ve `.lua` uzantılı bütün dosyalar, [torch-rnn](https://github.com/jcjohnson/torch-rnn) alanından direkt olarak alınmıştır. `language_models` klasörü içinde ise dil modelleri yer almaktadır.
+
+Bunun dışında, eğitilen dil modellerinin karakter-bazlı olması ve toplanan atasözü sayısının azlığı, anlamsız sahte atasözlerinin üretilmesine neden olmaktadır. Fakat, karakter-bazlı makine öğrenmesi modelimiz, karakterler arası ilişkiyi başarıyla çözebildiğinden, üretilen sahte atasözlerinde *Türkçemsi* bir fonetik elde edebilmektedir. Benzer şekilde, üretilen sahte kişi isimleri herhangi bir anlam ifade etmemektedir. Lakin *-atasözlerine benzer bir şekilde-* Türk isimlerinin sahip olduğu fonetik yakalanabilmiştir.
 
 ## Denemek ister misiniz?
 [https://t.me/yerismi_bot](https://t.me/yerismi_bot) linkini Telegram uygulaması üzerinden açarak botu deneyebilirsiniz :)
