@@ -14,6 +14,9 @@ export class Constants
     public static readonly PLACE_NAME_COMMAND = sprintf(Constants.COMMAND_TEMPLATE, "yer ismi");
     public static readonly PLACE_NAME_COMMAND_WITHOUT_TURKISH_CHARS = 
         sprintf(Constants.COMMAND_TEMPLATE_WITHOUT_TURKISH_CHARS, "yerismi");
+    public static readonly PERSON_NAME_COMMAND = sprintf(Constants.COMMAND_TEMPLATE, "kişi ismi");
+    public static readonly PERSON_NAME_COMMAND_WITHOUT_TURKISH_CHARS = 
+        sprintf(Constants.COMMAND_TEMPLATE_WITHOUT_TURKISH_CHARS, "kisiismi");
     public static readonly HELP_COMMAND = "yardım lütfen";
     public static readonly HELP_COMMAND_WITHOUT_TURKISH_CHARS = "yardimlutfen";
     public static readonly SOURCE_ARTICLE_URL = "https://ozymaxx.github.io/blog/2017/08/17/sahte-atasoz-yerismi/";

@@ -14,6 +14,7 @@ export class ResponseFactory
             "Kullanılabilecek komutlar: " + 
             "'%(helpCommand)s' - bu yardım metnini görmenizi sağlar\n" + 
             "'%(placeNameCommand)s' - bir yer ismi üretir\n" + 
+            "'%(personNameCommand)s' - bir kişi ismi üretir\n" + 
             "'%(proverbCommand)s' - bir atasözü üretir\n", 
             {
                 projectDisplayName: Constants.PROJECT_DISPLAY_NAME,
@@ -21,7 +22,8 @@ export class ResponseFactory
                 sourceArticleUrl: Constants.SOURCE_ARTICLE_URL,
                 helpCommand: Constants.HELP_COMMAND,
                 placeNameCommand: Constants.PLACE_NAME_COMMAND,
-                proverbCommand: Constants.PROVERB_COMMAND
+                proverbCommand: Constants.PROVERB_COMMAND,
+                personNameCommand: Constants.PERSON_NAME_COMMAND
             });
     private static readonly ACCEPTABLE_CHARS = new Set<string>([
         "A", 
@@ -104,8 +106,10 @@ export class ResponseFactory
     ]);
     private static readonly PLACENAME_MODEL_FILE_PATH = "language_models/checkpoint_7600.t7";
     private static readonly PROVERB_MODEL_FILE_PATH = "language_models/checkpoint_1600.t7";
+    private static readonly PERSON_NAME_MODEL_FILE_PATH = "language_models/checkpoint_11600.t7";
     private static readonly PLACENAME_CHAR_LENGTH = 100;
     private static readonly PROVERB_CHAR_LENGTH = 1000;
+    private static readonly PERSON_NAME_CHAR_LENGTH = 100;
     private static readonly COMMAND_TEMPLATE = "th sample.lua -checkpoint %(modelFilePath)s -length %(charLength)d -gpu -1";
     private static readonly INVALID_COMMAND_RESPONSE = 
         sprintf(
@@ -154,6 +158,9 @@ export class ResponseFactory
             case Constants.PLACE_NAME_COMMAND_WITHOUT_TURKISH_CHARS:
                 return ResponseFactory.createFakeResponse(
                     ResponseFactory.PLACENAME_CHAR_LENGTH, ResponseFactory.PLACENAME_MODEL_FILE_PATH);
+            case Constants.PERSON_NAME_COMMAND_WITHOUT_TURKISH_CHARS:
+                return ResponseFactory.createFakeResponse(
+                    ResponseFactory.PERSON_NAME_CHAR_LENGTH, ResponseFactory.PERSON_NAME_MODEL_FILE_PATH);
             default:
                 return ResponseFactory.INVALID_COMMAND_RESPONSE;
         }
