@@ -22,10 +22,11 @@ export class Constants
     public static readonly SOURCE_ARTICLE_URL = "https://ozymaxx.github.io/blog/2017/08/17/sahte-atasoz-yerismi/";
     public static readonly WELCOME_MESSAGE = 
         sprintf(
-            "Selam! Bana '%(proverbCommand)s' veya '%(placeNameCommand)s' yazarsan, sana sahte atasözü veya " + 
-            "yer ismi üretebilirim!", 
+            "Selam! Bana '%(proverbCommand)s', '%(personNameCommand)s' veya '%(placeNameCommand)s' yazarsan, sana sahte " + 
+            "atasözü, kişi ismi veya yer ismi üretebilirim!", 
             {
                 proverbCommand: Constants.PROVERB_COMMAND,
-                placeNameCommand: Constants.PLACE_NAME_COMMAND
+                placeNameCommand: Constants.PLACE_NAME_COMMAND,
+                personNameCommand: Constants.PERSON_NAME_COMMAND
             });
 }
