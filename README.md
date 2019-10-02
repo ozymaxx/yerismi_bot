@@ -18,7 +18,9 @@ istiyor. Ardından botumuza bir kullanıcı ismi oluşturmamız isteniyor. Bu i�
 bot üzerinde geliştirme yapabilmemiz için bir HTTP API anahtarı oluşturuluyor. Bu anahtarı bir yere kaydediyoruz
 ve başkalarıyla paylaşmıyoruz.
 
-* Açmış olduğumuz Docker imajı içerisinde `~/torch-rnn` dizinindeyken `git clone https://github.com/ozymaxx/yerismi_bot.git` komutu ile bu alanda yer alan kaynak kodu indiriyoruz. 
+* [Şu adreste](https://github.com/luarocks/luarocks/wiki/installation-instructions-for-unix) yer alan adımları takip ederek Lua ve Luarocks paketlerinin kurulumunu gerçekleştiriyoruz.
+
+* `nn` isimli Lua paketini, Luarocks paket yöneticisini kullanarak `luarocks install nn` komutu ile yüklüyoruz.
 
 * Şu [yazıda](https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/) da görülebileceği üzere, aşağıdaki komutları
 uygulayarak kaynak kodumuza uygun NPM ve Node.js paketlerinin kurulmasını sağlıyoruz:
@@ -32,13 +34,6 @@ yazılmış olan TypeScript kodunu JavaScript'e çeviriyoruz:
     ```
     npm install
     npm run-script build
-    ```
-
-* Çevrilen JavaScript kodlarını ve bu kodların çalışması için gerekli paketleri, aşağıdaki komutları kullanarak bir üst
-dizine, yani dil modellerinin ve sahte atasözü/yer ismi üreten yığın dosyalarının yer aldığı dizine kopyalıyoruz:
-    ```
-    cp -a node_modules/. ..
-    cp *.js ..
     ```
 
 * Telegram botunun oluşturulması esnasında sahip olduğumuz anahtarı, bir ortam değişkeni olarak depoluyoruz. Söz konusu
@@ -56,3 +51,9 @@ Kullanım popularitesinden ötürü sohbet botunu TS kullanarak Node.js üzerind
 
 * Bot sunucusunu [lua-telegram-bot](https://github.com/cosmonawt/lua-telegram-bot) kullanarak Lua dilini kullanarak gerçeklemek.
 * Lua dilinde yazılan `torch-rnn` uygulamasını JavaScript dilini kullanarak gerçeklemek ve bir Node.js paketi haline getirmek. Sinir ağlarının yazılması için [synaptic.js](https://caza.la/synaptic/#/) kütüphanesinden faydalanılabilir.
+
+## Not
+Kaynak kodunda yer alan `utils` klasörü ve `.lua` uzantılı bütün dosyalar, [torch-rnn](https://github.com/jcjohnson/torch-rnn) alanından direkt olarak alınmıştır. `language_models` klasörü içinde ise dil modelleri yer almaktadır.
+
+## Denemek ister misiniz?
+[https://t.me/yerismi_bot](https://t.me/yerismi_bot) linkini Telegram uygulaması üzerinden açarak botu deneyebilirsiniz :)
