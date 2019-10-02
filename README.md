@@ -54,3 +54,6 @@ Kullanım popularitesinden ötürü sohbet botunu TS kullanarak Node.js üzerind
 
 ## Not
 Kaynak kodunda yer alan `utils` klasörü ve `.lua` uzantılı bütün dosyalar, [torch-rnn](https://github.com/jcjohnson/torch-rnn) alanından direkt olarak alınmıştır. `language_models` klasörü içinde ise dil modelleri yer almaktadır.
+
+## Denemek ister misiniz?
+[https://t.me/yerismi_bot](https://t.me/yerismi_bot) linkini Telegram uygulaması üzerinden açarak botu deneyebilirsiniz :)
