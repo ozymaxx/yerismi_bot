@@ -141,7 +141,6 @@ export class ResponseFactory
 
     public static createResponse(request: string): string
     {
-        console.log(ResponseFactory.eliminateTurkishCharsAndConvertToLowercase(request));
         switch (ResponseFactory.eliminateTurkishCharsAndConvertToLowercase(request))
         {
             case Constants.HELP_COMMAND_WITHOUT_TURKISH_CHARS:
