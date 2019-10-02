@@ -53,4 +53,4 @@ Kullanım popularitesinden ötürü sohbet botunu TS kullanarak Node.js üzerind
 * Lua dilinde yazılan `torch-rnn` uygulamasını JavaScript dilini kullanarak gerçeklemek ve bir Node.js paketi haline getirmek. Sinir ağlarının yazılması için [synaptic.js](https://caza.la/synaptic/#/) kütüphanesinden faydalanılabilir.
 
 ## Not
-Kaynak kodunda yer alan `utils` klasörü ve `.lua` uzantılı bütün dosyalar, [torch-rnn](https://github.com/jcjohnson/torch-rnn) alanından direkt olarak alınmıştır. `language_models` klasörü içerisinde ise dil modelleri yer almaktadır.
+Kaynak kodunda yer alan `utils` klasörü ve `.lua` uzantılı bütün dosyalar, [torch-rnn](https://github.com/jcjohnson/torch-rnn) alanından direkt olarak alınmıştır. `language_models` klasörü içinde ise dil modelleri yer almaktadır.
