@@ -23,11 +23,74 @@ export class ResponseFactory
                 placeNameCommand: Constants.PLACE_NAME_COMMAND,
                 proverbCommand: Constants.PROVERB_COMMAND
             });
+    private static readonly ACCEPTABLE_CHARS = new Set<string>([
+        "A", 
+        "B", 
+        "C",
+        "Ç", 
+        "D", 
+        "E", 
+        "F", 
+        "G", 
+        "Ğ", 
+        "H", 
+        "I",
+        "İ", 
+        "J", 
+        "K",
+        "L", 
+        "M", 
+        "N", 
+        "O", 
+        "Ö", 
+        "P", 
+        "R", 
+        "S", 
+        "Ş", 
+        "T", 
+        "U", 
+        "Ü", 
+        "V", 
+        "Y", 
+        "Z",
+        "Q", 
+        "W",
+        "a",
+        "b", 
+        "c", 
+        "ç", 
+        "d", 
+        "e", 
+        "f", 
+        "g", 
+        "ğ", 
+        "h", 
+        "ı", 
+        "i",
+        "j", 
+        "k", 
+        "l", 
+        "m", 
+        "n", 
+        "o", 
+        "ö", 
+        "p", 
+        "r", 
+        "s", 
+        "ş", 
+        "t", 
+        "u", 
+        "ü", 
+        "v", 
+        "y", 
+        "z", 
+        "q", 
+        "w"
+    ]);
     private static readonly TURKISH_CHARS = new Set<string>(["Ç", "Ğ", "İ", "Ö", "Ş", "Ü", "ç", "ğ", "ı", "ş", "ö", "ü"]);
     private static readonly TURKISH_CHAR_2_LATIN_CHAR = new Map<string, string>([
         ["Ç", "C"],
         ["Ğ", "G"],
-        ["İ", "I"],
         ["Ö", "O"],
         ["Ş", "S"],
         ["Ü", "U"],
@@ -50,10 +113,15 @@ export class ResponseFactory
 
     private static eliminateTurkishCharsAndConvertToLowercase(command: string): string
     {
+        command = command.trim();
         const newChars: string[] = [];
         for (let i = 0; i < command.length; ++i)
         {
             let newChar = command.charAt(i);
+            if (!ResponseFactory.ACCEPTABLE_CHARS.has(newChar))
+            {
+                continue;
+            }
             if (ResponseFactory.TURKISH_CHARS.has(newChar))
             {
                 newChar = ResponseFactory.TURKISH_CHAR_2_LATIN_CHAR.get(newChar);
