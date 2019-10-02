@@ -87,7 +87,7 @@ export class ResponseFactory
         "q", 
         "w"
     ]);
-    private static readonly TURKISH_CHARS = new Set<string>(["Ç", "Ğ", "İ", "Ö", "Ş", "Ü", "ç", "ğ", "ı", "ş", "ö", "ü"]);
+    private static readonly TURKISH_CHARS = new Set<string>(["Ç", "Ğ", "Ö", "Ş", "Ü", "ç", "ğ", "ı", "ş", "ö", "ü"]);
     private static readonly TURKISH_CHAR_2_LATIN_CHAR = new Map<string, string>([
         ["Ç", "C"],
         ["Ğ", "G"],
