@@ -23,6 +23,21 @@ export class ResponseFactory
                 placeNameCommand: Constants.PLACE_NAME_COMMAND,
                 proverbCommand: Constants.PROVERB_COMMAND
             });
+    private static readonly TURKISH_CHARS = new Set<string>(["Ç", "Ğ", "İ", "Ö", "Ş", "Ü", "ç", "ğ", "ı", "ş", "ö", "ü"]);
+    private static readonly TURKISH_CHAR_2_LATIN_CHAR = new Map<string, string>([
+        ["Ç", "C"],
+        ["Ğ", "G"],
+        ["İ", "I"],
+        ["Ö", "O"],
+        ["Ş", "S"],
+        ["Ü", "U"],
+        ["ç", "c"],
+        ["ğ", "g"],
+        ["ı", "i"],
+        ["ö", "o"],
+        ["ş", "s"],
+        ["ü", "u"]
+    ]);
     private static readonly PLACENAME_MODEL_FILE_PATH = "language_models/checkpoint_7600.t7";
     private static readonly PROVERB_MODEL_FILE_PATH = "language_models/checkpoint_1600.t7";
     private static readonly PLACENAME_CHAR_LENGTH = 100;
@@ -32,6 +47,21 @@ export class ResponseFactory
         sprintf(
             "Ne istediğini anlamadım; '%(helpCommand)s' yazarak yardım isteyebilirsin.", 
             { helpCommand: Constants.HELP_COMMAND });
+
+    private static eliminateTurkishCharsAndConvertToLowercase(command: string): string
+    {
+        const newChars: string[] = [];
+        for (let i = 0; i < command.length; ++i)
+        {
+            let newChar = command.charAt(i);
+            if (ResponseFactory.TURKISH_CHARS.has(newChar))
+            {
+                newChar = ResponseFactory.TURKISH_CHAR_2_LATIN_CHAR.get(newChar);
+            }
+            newChars.push(newChar.toLowerCase());
+        }
+        return newChars.join("");
+    }
 
     private static createFakeResponse(charLength: number, modelFilePath: string): string
     {
@@ -43,14 +73,14 @@ export class ResponseFactory
 
     public static createResponse(request: string): string
     {
-        switch (request)
+        switch (ResponseFactory.eliminateTurkishCharsAndConvertToLowercase(request))
         {
-            case Constants.HELP_COMMAND:
+            case Constants.HELP_COMMAND_WITHOUT_TURKISH_CHARS:
                 return ResponseFactory.HELP_STRING;
-            case Constants.PROVERB_COMMAND:
+            case Constants.PROVERB_COMMAND_WITHOUT_TURKISH_CHARS:
                 return ResponseFactory.createFakeResponse(
                     ResponseFactory.PROVERB_CHAR_LENGTH, ResponseFactory.PROVERB_MODEL_FILE_PATH);
-            case Constants.PLACE_NAME_COMMAND:
+            case Constants.PLACE_NAME_COMMAND_WITHOUT_TURKISH_CHARS:
                 return ResponseFactory.createFakeResponse(
                     ResponseFactory.PLACENAME_CHAR_LENGTH, ResponseFactory.PLACENAME_MODEL_FILE_PATH);
             default:
