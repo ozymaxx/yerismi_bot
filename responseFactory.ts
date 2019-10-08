@@ -179,6 +179,7 @@ export class ResponseFactory
 
     private static requestMatches(request: string, actualCommand: string): boolean
     {
+        console.log(ResponseFactory.levenshteinDistance(request, actualCommand));
         return ResponseFactory.levenshteinDistance(request, actualCommand) <= ResponseFactory.MAX_LEVENSHTEIN_DISTANCE;
     }
 
