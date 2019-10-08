@@ -137,11 +137,27 @@ export class ResponseFactory
         return newChars.join("");
     }
 
-    private static levenshteinDistance(request: string, actualCommand: string): number
+    private static createFakeResponse(charLength: number, modelFilePath: string): string
     {
-        const table: number[][] = [];
+        const outputWithMultipleLines = 
+            exec(sprintf(ResponseFactory.COMMAND_TEMPLATE, { charLength, modelFilePath })).stdout.trim();
+        const splitOutput = outputWithMultipleLines.split("\n");
+        return splitOutput[2];
+    }
+
+    public static levenshteinDistance(request: string, actualCommand: string): number
+    {
         const requestLength = request.length;
         const actualCommandLength = actualCommand.length;
+        if (requestLength === 0)
+        {
+            return actualCommandLength;
+        }
+        if (actualCommandLength === 0)
+        {
+            return requestLength;
+        }
+        const table: number[][] = [];
         for (let i = 0; i < requestLength; ++i)
         {
             const row: number[] = [];
@@ -151,10 +167,18 @@ export class ResponseFactory
             }
             table.push(row);
         }
+        if (request.charAt(0) !== actualCommand.charAt(0))
+        {
+            table[0][0] = 1;
+        }
         for (let i = 0; i < requestLength; ++i)
         {
             for (let j = 0; j < actualCommandLength; ++j)
             {
+                if (!i && !j)
+                {
+                    continue;
+                }
                 let value = 0;
                 if (Math.min(i, j) === 0)
                 {
@@ -177,24 +201,15 @@ export class ResponseFactory
         return table[requestLength-1][actualCommandLength-1];
     }
 
-    private static requestMatches(request: string, actualCommand: string): boolean
+    public static requestMatches(request: string, actualCommand: string): boolean
     {
         console.log(ResponseFactory.levenshteinDistance(request, actualCommand));
         return ResponseFactory.levenshteinDistance(request, actualCommand) <= ResponseFactory.MAX_LEVENSHTEIN_DISTANCE;
     }
 
-    private static createFakeResponse(charLength: number, modelFilePath: string): string
-    {
-        const outputWithMultipleLines = 
-            exec(sprintf(ResponseFactory.COMMAND_TEMPLATE, { charLength, modelFilePath })).stdout.trim();
-        const splitOutput = outputWithMultipleLines.split("\n");
-        return splitOutput[2];
-    }
-
     public static createResponse(request: string): string
     {
         const cleanRequest = ResponseFactory.eliminateTurkishCharsAndConvertToLowercase(request);
-        console.log(cleanRequest);
         if (ResponseFactory.requestMatches(cleanRequest, Constants.HELP_COMMAND_WITHOUT_TURKISH_CHARS))
         {
             return ResponseFactory.HELP_STRING;

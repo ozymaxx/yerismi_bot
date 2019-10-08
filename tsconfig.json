@@ -2,6 +2,7 @@
     "files": [
         "constants.ts",
         "index.ts",
-        "responseFactory.ts"
+        "responseFactory.ts",
+        "tests/responseFactory.spec.ts"
     ]
 }
