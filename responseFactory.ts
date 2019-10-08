@@ -145,6 +145,20 @@ export class ResponseFactory
         return splitOutput[2];
     }
 
+    private static readonly FAKE_RESPONSE_CREATION_FUNCTIONS = [
+        () => ResponseFactory.HELP_STRING, 
+        () => ResponseFactory.createFakeResponse(
+            ResponseFactory.PROVERB_CHAR_LENGTH, ResponseFactory.PROVERB_MODEL_FILE_PATH),
+        () => ResponseFactory.createFakeResponse(
+            ResponseFactory.PLACENAME_CHAR_LENGTH, ResponseFactory.PLACENAME_MODEL_FILE_PATH),
+        () => ResponseFactory.createFakeResponse(
+            ResponseFactory.PERSON_NAME_CHAR_LENGTH, ResponseFactory.PERSON_NAME_MODEL_FILE_PATH)];
+    private static readonly COMMANDS_WITHOUT_TURKISH_CHARS = [
+        Constants.HELP_COMMAND_WITHOUT_TURKISH_CHARS,
+        Constants.PROVERB_COMMAND_WITHOUT_TURKISH_CHARS,
+        Constants.PLACE_NAME_COMMAND_WITHOUT_TURKISH_CHARS,
+        Constants.PERSON_NAME_COMMAND_WITHOUT_TURKISH_CHARS];
+
     public static levenshteinDistance(request: string, actualCommand: string): number
     {
         const requestLength = request.length;
@@ -201,28 +215,18 @@ export class ResponseFactory
         return table[requestLength-1][actualCommandLength-1];
     }
 
-    public static requestMatches(request: string, actualCommand: string): boolean
-    {
-        console.log(ResponseFactory.levenshteinDistance(request, actualCommand));
-        return ResponseFactory.levenshteinDistance(request, actualCommand) <= ResponseFactory.MAX_LEVENSHTEIN_DISTANCE;
-    }
-
     public static createResponse(request: string): string
     {
         const cleanRequest = ResponseFactory.eliminateTurkishCharsAndConvertToLowercase(request);
-        if (ResponseFactory.requestMatches(cleanRequest, Constants.HELP_COMMAND_WITHOUT_TURKISH_CHARS))
+        const levenshteinDistancesOfAllCommands = 
+            ResponseFactory.COMMANDS_WITHOUT_TURKISH_CHARS.map(
+                (command: string) => ResponseFactory.levenshteinDistance(cleanRequest, command));
+        const minLevenshteinDistance = Math.min(...levenshteinDistancesOfAllCommands);
+        if (minLevenshteinDistance <= ResponseFactory.MAX_LEVENSHTEIN_DISTANCE)
         {
-            return ResponseFactory.HELP_STRING;
-        }
-        if (ResponseFactory.requestMatches(cleanRequest, Constants.PROVERB_COMMAND_WITHOUT_TURKISH_CHARS))
-        {
-            return ResponseFactory.createFakeResponse(
-                ResponseFactory.PROVERB_CHAR_LENGTH, ResponseFactory.PROVERB_MODEL_FILE_PATH);
-        }
-        if (ResponseFactory.requestMatches(cleanRequest, Constants.PLACE_NAME_COMMAND_WITHOUT_TURKISH_CHARS))
-        {
-            return ResponseFactory.createFakeResponse(
-                ResponseFactory.PLACENAME_CHAR_LENGTH, ResponseFactory.PLACENAME_MODEL_FILE_PATH);
+            const properFakeResponseCreationFunctionIndex = 
+                levenshteinDistancesOfAllCommands.indexOf(minLevenshteinDistance);
+            return ResponseFactory.FAKE_RESPONSE_CREATION_FUNCTIONS[properFakeResponseCreationFunctionIndex]();
         }
         return ResponseFactory.INVALID_COMMAND_RESPONSE;
     }
