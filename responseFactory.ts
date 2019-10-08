@@ -115,6 +115,7 @@ export class ResponseFactory
         sprintf(
             "Ne istediğini anlamadım; '%(helpCommand)s' yazarak yardım isteyebilirsin.", 
             { helpCommand: Constants.HELP_COMMAND });
+    private static readonly MAX_LEVENSHTEIN_DISTANCE = 4;
 
     private static eliminateTurkishCharsAndConvertToLowercase(command: string): string
     {
@@ -136,6 +137,51 @@ export class ResponseFactory
         return newChars.join("");
     }
 
+    private static levenshteinDistance(request: string, actualCommand: string): number
+    {
+        const table: number[][] = [];
+        const requestLength = request.length;
+        const actualCommandLength = actualCommand.length;
+        for (let i = 0; i < requestLength; ++i)
+        {
+            const row: number[] = [];
+            for (let j = 0; j < actualCommandLength; ++j)
+            {
+                row.push(0);
+            }
+            table.push(row);
+        }
+        for (let i = 0; i < requestLength; ++i)
+        {
+            for (let j = 0; j < actualCommandLength; ++j)
+            {
+                let value = 0;
+                if (Math.min(i, j) === 0)
+                {
+                    value = Math.max(i, j);
+                }
+                else
+                {
+                    let leftDiagonalValue = table[i-1][j-1];
+                    if (request.charAt(i) !== actualCommand.charAt(j))
+                    {
+                        ++leftDiagonalValue;
+                    }
+                    const upperValue = table[i-1][j] + 1;
+                    const leftValue = table[i][j-1] + 1;
+                    value = Math.min(leftDiagonalValue, upperValue, leftValue);
+                }
+                table[i][j] = value;
+            }
+        }
+        return table[requestLength-1][actualCommandLength-1];
+    }
+
+    private static requestMatches(request: string, actualCommand: string): boolean
+    {
+        return ResponseFactory.levenshteinDistance(request, actualCommand) <= ResponseFactory.MAX_LEVENSHTEIN_DISTANCE;
+    }
+
     private static createFakeResponse(charLength: number, modelFilePath: string): string
     {
         const outputWithMultipleLines = 
@@ -148,21 +194,20 @@ export class ResponseFactory
     {
         const cleanRequest = ResponseFactory.eliminateTurkishCharsAndConvertToLowercase(request);
         console.log(cleanRequest);
-        switch (cleanRequest)
+        if (ResponseFactory.requestMatches(cleanRequest, Constants.HELP_COMMAND_WITHOUT_TURKISH_CHARS))
         {
-            case Constants.HELP_COMMAND_WITHOUT_TURKISH_CHARS:
-                return ResponseFactory.HELP_STRING;
-            case Constants.PROVERB_COMMAND_WITHOUT_TURKISH_CHARS:
-                return ResponseFactory.createFakeResponse(
-                    ResponseFactory.PROVERB_CHAR_LENGTH, ResponseFactory.PROVERB_MODEL_FILE_PATH);
-            case Constants.PLACE_NAME_COMMAND_WITHOUT_TURKISH_CHARS:
-                return ResponseFactory.createFakeResponse(
-                    ResponseFactory.PLACENAME_CHAR_LENGTH, ResponseFactory.PLACENAME_MODEL_FILE_PATH);
-            case Constants.PERSON_NAME_COMMAND_WITHOUT_TURKISH_CHARS:
-                return ResponseFactory.createFakeResponse(
-                    ResponseFactory.PERSON_NAME_CHAR_LENGTH, ResponseFactory.PERSON_NAME_MODEL_FILE_PATH);
-            default:
-                return ResponseFactory.INVALID_COMMAND_RESPONSE;
+            return ResponseFactory.HELP_STRING;
         }
+        if (ResponseFactory.requestMatches(cleanRequest, Constants.PROVERB_COMMAND_WITHOUT_TURKISH_CHARS))
+        {
+            return ResponseFactory.createFakeResponse(
+                ResponseFactory.PROVERB_CHAR_LENGTH, ResponseFactory.PROVERB_MODEL_FILE_PATH);
+        }
+        if (ResponseFactory.requestMatches(cleanRequest, Constants.PLACE_NAME_COMMAND_WITHOUT_TURKISH_CHARS))
+        {
+            return ResponseFactory.createFakeResponse(
+                ResponseFactory.PLACENAME_CHAR_LENGTH, ResponseFactory.PLACENAME_MODEL_FILE_PATH);
+        }
+        return ResponseFactory.INVALID_COMMAND_RESPONSE;
     }
 }
