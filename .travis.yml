@@ -16,6 +16,7 @@ install:
     - ./configure
     - sudo make && sudo make install
     - cd ..
+    - sudo luarocks install nn
 before_script:
     - npm install
     - npm run-script build
