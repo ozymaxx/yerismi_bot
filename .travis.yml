@@ -1,4 +1,4 @@
-dist: bionic
+dist: precise
 language: node_js
 node_js:
     - 12.11.0
