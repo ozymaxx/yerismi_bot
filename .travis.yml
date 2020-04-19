@@ -4,7 +4,7 @@ node_js:
     - 12.11.0
 before_script:
     - sudo apt update
-    - sudo apt install build-essential libreadline-dev libnanomsg-dev lua luarocks
+    - sudo apt install build-essential libreadline-dev libnanomsg-dev lua5.3 luarocks
     - sudo luarocks install nn
     - sudo apt install torch-trepl
     - npm install
