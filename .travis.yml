@@ -14,7 +14,7 @@ install:
     - tar zxpf luarocks-3.3.1.tar.gz
     - cd luarocks-3.3.1
     - ./configure
-    - make && make install
+    - sudo make && sudo make install
     - cd ..
 before_script:
     - npm install
