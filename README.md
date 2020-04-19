@@ -1,4 +1,6 @@
 # Sinir Ağları Tabanlı Yer İsimleri Üreten Telegram Botu
+[![Build Status](https://travis-ci.com/ozymaxx/yerismi_bot.svg?branch=master)](https://travis-ci.com/ozymaxx/yerismi_bot)
+
 [Bu yazımda](https://ozymaxx.github.io/blog/2017/08/17/sahte-atasoz-yerismi/) yer alan sahte atasözü 
 ve yer ismi üreten dil modellerinin çalıştırıldığı basit bir Telegram botu hazırladım. Bot, aşağıdaki komutları 
 desteklemektedir:

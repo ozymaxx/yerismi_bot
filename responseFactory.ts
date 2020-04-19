@@ -110,7 +110,7 @@ export class ResponseFactory
     private static readonly PLACENAME_CHAR_LENGTH = 100;
     private static readonly PROVERB_CHAR_LENGTH = 1000;
     private static readonly PERSON_NAME_CHAR_LENGTH = 100;
-    private static readonly COMMAND_TEMPLATE = "th sample.lua -checkpoint %(modelFilePath)s -length %(charLength)d -gpu -1";
+    private static readonly COMMAND_TEMPLATE = "./torch/install/bin/th sample.lua -checkpoint %(modelFilePath)s -length %(charLength)d -gpu -1";
     private static readonly INVALID_COMMAND_RESPONSE = 
         sprintf(
             "Ne istediğini anlamadım; '%(helpCommand)s' yazarak yardım isteyebilirsin.", 
