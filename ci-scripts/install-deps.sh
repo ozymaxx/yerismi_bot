@@ -5,3 +5,4 @@ cd ./torch
 bash install-deps
 ./install.sh -b
 cd ..
+npm install
