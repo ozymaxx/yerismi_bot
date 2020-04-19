@@ -3,7 +3,7 @@ language: node_js
 node_js:
     - 12.11.0
 before_script:
-    - sudo ./ci-scripts/install-deps.sh
+    - ./ci-scripts/install-deps.sh
     - npm run-script build
 script:
     - npm run-script test
