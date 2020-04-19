@@ -1,9 +1,16 @@
 dist: bionic
 language: node_js
 node_js:
-	- 12.11.0
+    - 12.11.0
 before_script:
-	- npm install
-	- npm run-script build
+    - sudo apt update
+    - sudo apt install build-essential libreadline-dev libnanomsg-dev
+    - git clone https://github.com/ozymaxx/distro.git ./torch --recursive
+    - cd ./torch
+    - bash install-deps
+    - ./install.sh -b
+    - cd ..
+    - npm install
+    - npm run-script build
 script:
-	- npm run-script test
+    - npm run-script test
