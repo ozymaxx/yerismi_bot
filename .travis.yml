@@ -1,7 +1,5 @@
 dist: bionic
 language: node_js
-node_js:
-	- 12.11.0
 before_script:
 	- npm install
 	- npm run-script build
