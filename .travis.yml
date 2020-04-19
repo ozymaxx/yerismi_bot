@@ -20,5 +20,6 @@ before_script:
     - sudo luarocks install nn
     - npm install
     - npm run-script build
+    - th -v
 script:
     - npm run-script test
