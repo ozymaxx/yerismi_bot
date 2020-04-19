@@ -6,7 +6,7 @@ before_script:
     - sudo apt update
     - sudo apt install build-essential libreadline-dev libnanomsg-dev lua5.3 liblua5.3-dev luarocks
     - sudo luarocks install nn
-    - sudo luarocks install trepl
+    - sudo luarocks install torch-trepl
     - npm install
     - npm run-script build
 script:
