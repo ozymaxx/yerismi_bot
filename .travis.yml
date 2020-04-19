@@ -2,7 +2,7 @@ dist: bionic
 language: node_js
 node_js:
     - 12.11.0
-before_script:
+install:
     - sudo apt install build-essential libreadline-dev
     - curl -R -O http://www.lua.org/ftp/lua-5.3.4.tar.gz
     - tar -zxf lua-5.3.4.tar.gz
@@ -16,6 +16,7 @@ before_script:
     - ./configure
     - make && make install
     - cd ..
+before_script:
     - npm install
     - npm run-script build
 script:
