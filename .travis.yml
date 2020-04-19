@@ -4,19 +4,7 @@ node_js:
     - 12.11.0
 before_script:
     - sudo apt update
-    - sudo apt install build-essential libreadline-dev libnanomsg-dev
-    - curl -R -O http://www.lua.org/ftp/lua-5.3.4.tar.gz
-    - tar -zxf lua-5.3.4.tar.gz
-    - cd lua-5.3.4
-    - make linux test
-    - sudo make install
-    - cd ..
-    - wget https://luarocks.org/releases/luarocks-3.3.1.tar.gz
-    - tar zxpf luarocks-3.3.1.tar.gz
-    - cd luarocks-3.3.1
-    - ./configure
-    - sudo make && sudo make install
-    - cd ..
+    - sudo apt install build-essential libreadline-dev libnanomsg-dev lua luarocks
     - sudo luarocks install nn
     - sudo apt install torch-trepl
     - npm install
